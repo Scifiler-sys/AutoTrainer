@@ -22,6 +22,7 @@ namespace AutoTrainer
     {
         public MainWindow()
         {
+
             InitializeComponent();
         }
     }
