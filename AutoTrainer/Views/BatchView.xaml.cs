@@ -1,5 +1,6 @@
 ﻿using AutoTrainer.DL;
 using AutoTrainer.Models;
+using AutoTrainer.Services;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -25,25 +26,21 @@ namespace AutoTrainer.Views
     {
         public BatchView()
         {
-            BatchRepository batchRepo = new BatchRepository();
-            Batch test = new Batch(batchRepo);
             InitializeComponent();
-
-            BatchDataGrid.ItemsSource = test.Associates;
         }
 
         private void WarnButton_Click(object sender, RoutedEventArgs e)
         {
             Associate associate = (Associate)((Button)e.Source).DataContext;
 
-            MessageBox.Show($"{associate.Name}");
+            MessageBox.Show($"{associate.firstName}");
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
             Associate associate = (Associate)((Button)e.Source).DataContext;
 
-            MessageBox.Show($"{associate.Name}");
+            MessageBox.Show($"{associate.firstName}");
         }
     }
 }

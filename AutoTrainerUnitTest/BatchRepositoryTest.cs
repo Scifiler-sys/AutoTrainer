@@ -22,12 +22,12 @@ namespace AutoTrainerUnitTest
         {
             //Arrange
             Associate addedAssociate = new Associate() { 
-                Email = "unit@gmail.com",
-                Github ="unitGithub",
-                Name = "UnitTest"
+                email = "unit@gmail.com",
+                gitUsername ="unitGithub",
+                firstName = "UnitTest"
             };
             Batch expectedBatch = new Batch() { 
-                Associates = new List<Associate>() { addedAssociate }
+                data = new List<Associate>() { addedAssociate }
             };
 
             //Act
@@ -46,13 +46,13 @@ namespace AutoTrainerUnitTest
         {
             Associate addedAssociate = new Associate()
             {
-                Email = "unit@gmail.com",
-                Github = "unitGithub",
-                Name = "UnitTest"
+                email = "unit@gmail.com",
+                gitUsername = "unitGithub",
+                firstName = "UnitTest"
             };
             Batch expectedBatch = new Batch()
             {
-                Associates = new List<Associate>() { addedAssociate }
+                data = new List<Associate>() { addedAssociate }
             };
 
             Batch actualBatch = repo.Load();
