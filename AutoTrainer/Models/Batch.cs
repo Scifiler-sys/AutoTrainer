@@ -20,16 +20,12 @@ namespace AutoTrainer.Models
             this.data = new List<Associate>();
         }
 
+        //Questionable constructor, might delete later
         public Batch(BatchRepository batchRepository)
         {
             batchRepo = batchRepository;
 
             this.data = batchRepo.Load().data;
-        }
-
-        public void DeleteAssociate(Associate associate)
-        {
-
         }
 
         public override bool Equals(object obj)

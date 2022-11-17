@@ -1,8 +1,10 @@
 ﻿using AutoTrainer.DL;
 using AutoTrainer.Models;
 using AutoTrainer.Services;
+using AutoTrainer.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -20,25 +22,26 @@ using System.Windows.Shapes;
 namespace AutoTrainer.Views
 {
     /// <summary>
-    /// Interaction logic for BatchView.xaml
+    /// Interaction logic for ManageBatchView.xaml
+    /// Views are mostly for concerning on how you should show the view
     /// </summary>
-    public partial class BatchView : UserControl
+    public partial class ManageBatchView : UserControl
     {
-        public BatchView()
+        public ManageBatchView()
         {
             InitializeComponent();
         }
 
         private void WarnButton_Click(object sender, RoutedEventArgs e)
         {
-            Associate associate = (Associate)((Button)e.Source).DataContext;
+            AssociateViewModel associate = (AssociateViewModel)((Button)e.Source).DataContext;
 
             MessageBox.Show($"{associate.firstName}");
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            Associate associate = (Associate)((Button)e.Source).DataContext;
+            AssociateViewModel associate = (AssociateViewModel)((Button)e.Source).DataContext;
 
             MessageBox.Show($"{associate.firstName}");
         }
