@@ -9,15 +9,22 @@ namespace AutoTrainer.Models
 {
     public class Batch
     {
-        public IList<Associate> Associates { get; set; }
+        public int statusCode { get; set; }
+        public string description { get; set; }
+        public IList<Associate> data { get; set; }
 
         private readonly BatchRepository batchRepo;
+
+        public Batch()
+        {
+            this.data = new List<Associate>();
+        }
 
         public Batch(BatchRepository batchRepository)
         {
             batchRepo = batchRepository;
 
-            this.Associates = batchRepo.Load().Associates;
+            this.data = batchRepo.Load().data;
         }
 
         public void DeleteAssociate(Associate associate)
@@ -32,9 +39,9 @@ namespace AutoTrainer.Models
             if (other == null)
                 return false;
 
-            for (int i = 0; i < other.Associates.Count; i++)
+            for (int i = 0; i < other.data.Count; i++)
             {
-                if (!other.Associates[i].Equals(this.Associates[i]))
+                if (!other.data[i].Equals(this.data[i]))
                 {
                     return false;
                 }
@@ -44,7 +51,7 @@ namespace AutoTrainer.Models
         }
         public override int GetHashCode()
         {
-            return HashCode.Combine(Associates, batchRepo);
+            return HashCode.Combine(data, batchRepo);
         }
     }
 }
