@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoTrainer.Stores;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,11 +9,12 @@ namespace AutoTrainer.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
-        public ViewModelBase CurrentViewModel { get; }
+        private readonly NavigationStore _store;
+        public ViewModelBase CurrentViewModel => _store.CurrentViewModel;
 
-        public MainViewModel()
+        public MainViewModel(NavigationStore store)
         {
-            CurrentViewModel = new ManageBatchViewModel();
+            _store = store;
         }
     }
 }

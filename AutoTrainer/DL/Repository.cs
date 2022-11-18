@@ -12,9 +12,15 @@ namespace AutoTrainer.DL
 {
     public class Repository<T>
     {
+        protected string filepath;
+
+        public Repository()
+        {
+            filepath = Directory.GetCurrentDirectory() + "\\" + this.GetType().Name + ".json";
+        }
+
         public void Save(T entity)
         {
-            string filepath = Directory.GetCurrentDirectory() +"\\"+ this.GetType().Name + ".json";
 
             using (StreamWriter writer = new StreamWriter(filepath))
             {
@@ -28,10 +34,8 @@ namespace AutoTrainer.DL
         /// <returns>
         /// Will return an object version of JSON. If file does not exist, return null instead.
         /// </returns>
-        public Batch Load()
+        public virtual Batch Load()
         {
-            string filepath = Directory.GetCurrentDirectory() +"\\"+ this.GetType().Name + ".json";
-
             try
             {
                 using (StreamReader reader = new StreamReader(filepath))

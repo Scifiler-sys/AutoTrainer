@@ -1,4 +1,6 @@
 ﻿using AutoTrainer.Commands;
+using AutoTrainer.Services;
+using AutoTrainer.Stores;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,22 +14,30 @@ namespace AutoTrainer.ViewModels
     public class ManageBatchViewModel : ViewModelBase
     {
         //ObservableCollection implements INoticeChange so it will re-render the page everytime the elements changes
-        private readonly ObservableCollection<AssociateViewModel> _associates;
+        private readonly BatchStore _batchStore;
+
+        private readonly RevProService _revProServices;
 
         //Exposing as IEnumerable for encapsulation so that other classes can't just grab this property to add/remove
-        public IEnumerable<AssociateViewModel> Associates => _associates;
+        public IEnumerable<AssociateViewModel> Associates => _batchStore.CurrentBatch.data;
         public ICommand SyncCommand { get; }
 
-        public ManageBatchViewModel()
+        public ManageBatchViewModel(RevProService revProServices, BatchStore batchStore)
         {
-            _associates = new ObservableCollection<AssociateViewModel>();
+            _revProServices = revProServices;
+            _batchStore = batchStore;
 
-            _associates.Add(new AssociateViewModel(new Models.Associate() { firstName = "Stephen", lastName = "Pagdilao", email="sp@gmail.com", gitUsername = "spGit"}));
-            _associates.Add(new AssociateViewModel(new Models.Associate() { firstName = "Marielle", lastName = "Nolasco", email = "mn@gmail.com", gitUsername = "mnGit" }));
-            _associates.Add(new AssociateViewModel(new Models.Associate() { firstName = "Pablo", lastName = "Cruz", email = "pc@gmail.com", gitUsername = "pcGit" }));
+            //The moment batch store value has changed, we are passing a OnCurrentBatchModelChanged action
+            //We have subscribe to that event to always re-render the page if that value changes
+            _batchStore.CurrentBatchModelChange += OnCurrentBatchModelChanged;
 
-            SyncCommand = new SyncBatchCommand();
+            SyncCommand = new SyncBatchCommand(_revProServices, batchStore);
         }
 
+        private void OnCurrentBatchModelChanged()
+        {
+            //Re-renders the view
+            OnPropertyChanged(nameof(Associates));
+        }
     }
 }

@@ -13,19 +13,9 @@ namespace AutoTrainer.Models
         public string description { get; set; }
         public IList<Associate> data { get; set; }
 
-        private readonly BatchRepository batchRepo;
-
         public Batch()
         {
             this.data = new List<Associate>();
-        }
-
-        //Questionable constructor, might delete later
-        public Batch(BatchRepository batchRepository)
-        {
-            batchRepo = batchRepository;
-
-            this.data = batchRepo.Load().data;
         }
 
         public override bool Equals(object obj)
@@ -45,9 +35,10 @@ namespace AutoTrainer.Models
 
             return true;
         }
+
         public override int GetHashCode()
         {
-            return HashCode.Combine(data, batchRepo);
+            return HashCode.Combine(statusCode, description, data);
         }
     }
 }

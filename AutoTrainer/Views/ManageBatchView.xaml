@@ -42,6 +42,7 @@
                   AutoGenerateColumns="False"
                   CanUserDeleteRows="False"
                   CanUserAddRows="False"
+                  IsReadOnly="True"
                   ItemsSource="{Binding Associates}">
             <DataGrid.Columns >
                 <DataGridTextColumn 
