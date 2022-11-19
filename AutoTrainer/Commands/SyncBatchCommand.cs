@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace AutoTrainer.Commands
 {
@@ -29,6 +30,11 @@ namespace AutoTrainer.Commands
             //pub sub already setup just need to change the property directly
             //Setter in batch store will see that change and automatically invoke the necesary 
             _batchStore.CurrentBatch = new BatchViewModel(newBatch);
+
+            MessageBox.Show("Successfully synced the batch!",
+                            "Sync Batch",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Information);
         }
     }
 }

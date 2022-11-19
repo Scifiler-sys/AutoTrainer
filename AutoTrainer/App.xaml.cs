@@ -1,5 +1,6 @@
 ﻿using AutoTrainer.DL;
 using AutoTrainer.Models;
+using AutoTrainer.Selenium;
 using AutoTrainer.Services;
 using AutoTrainer.Stores;
 using AutoTrainer.ViewModels;
@@ -25,6 +26,7 @@ namespace AutoTrainer
         private readonly NavigationStore _navigationStore;
         private readonly BatchStore _batchStore;
         private readonly RevProService _revProService;
+        private readonly EmailBot _emailBot;
         private readonly HttpClient _httpClient;
         private readonly BatchRepository _batchRepository;
 
@@ -34,6 +36,7 @@ namespace AutoTrainer
             _httpClient = new HttpClient();
             _batchRepository = new BatchRepository();
             _revProService = new RevProService(_httpClient, _batchRepository);
+            _emailBot = new EmailBot();
 
 
             _navigationStore = new NavigationStore();
@@ -43,7 +46,7 @@ namespace AutoTrainer
         protected override void OnStartup(StartupEventArgs e)
         {
             //Setting default/custom data for our stores
-            _navigationStore.CurrentViewModel = new ManageBatchViewModel(_revProService, _batchStore);
+            _navigationStore.CurrentViewModel = new ManageBatchViewModel(_revProService, _batchStore, _emailBot);
             _batchStore.CurrentBatch = new BatchViewModel(_batchRepository.Load());
 
             MainWindow = new MainWindow()

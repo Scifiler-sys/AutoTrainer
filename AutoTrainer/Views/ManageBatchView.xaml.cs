@@ -27,16 +27,33 @@ namespace AutoTrainer.Views
     /// </summary>
     public partial class ManageBatchView : UserControl
     {
+        public static readonly DependencyProperty WarnCommandProperty = DependencyProperty.Register("WarnCommand", typeof(ICommand), typeof(ManageBatchView), new PropertyMetadata(null));
+        public ICommand WarnCommand
+        {
+            get { return (ICommand)GetValue(WarnCommandProperty); }
+            set { SetValue(WarnCommandProperty, value); }
+        }
+
         public ManageBatchView()
         {
             InitializeComponent();
         }
 
+        //Decided to not use ViewModel only because routing routedEventArgs is not that easy in a command
         private void WarnButton_Click(object sender, RoutedEventArgs e)
         {
             AssociateViewModel associate = (AssociateViewModel)((Button)e.Source).DataContext;
 
-            MessageBox.Show($"{associate.firstName}");
+            if (MessageBox.Show($"Are you sure you want to send {associate.FullName} a technical warning?",
+                    "Send Email",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                if (WarnCommand != null)
+                {
+                    WarnCommand.Execute(associate);
+                }
+            }
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)

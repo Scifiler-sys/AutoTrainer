@@ -2,21 +2,42 @@
 using OpenQA.Selenium.Chrome;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace AutoTrainer.Selenium
 {
-    public class SeleniumBase
+    public class SeleniumDriver : IDisposable
     {
-        private readonly IWebDriver _webDriver;
+        private IWebDriver _webDriver;
 
-        public SeleniumBase()
+        public void Dispose()
         {
-            _webDriver = new ChromeDriver();
-            _webDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
+            if (_webDriver != null)
+            {
+                _webDriver.Quit();
+                _webDriver = null;
+            }
+        }
 
+        /*
+         * Initialization process to start the bot
+         * Will return existing bot or create a new bot
+         */
+        public IWebDriver GrabBot()
+        {
+            if (_webDriver == null)
+            {
+                ChromeOptions options = new ChromeOptions();
+                options.AddArgument($"user-data-dir={Directory.GetCurrentDirectory()}/Chrome/UserData/Bot");
+
+                _webDriver = new ChromeDriver(options);
+                _webDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
+            }
+
+            return _webDriver;
         }
     }
 }

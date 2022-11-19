@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoTrainer.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,6 +31,19 @@ namespace AutoTrainer.Models
         public int totalRecords { get; set; }
         public bool isNewTrainee { get; set; }
         public string gitUsername { get; set; }
+
+        public Associate()
+        {
+
+        }
+
+        public Associate(AssociateViewModel associate)
+        {
+            this.email = associate.Email;
+            this.firstName = associate.firstName;
+            this.lastName = associate.lastName;
+            this.gitUsername = associate.Github;
+        }
 
         public override bool Equals(object obj)
         {

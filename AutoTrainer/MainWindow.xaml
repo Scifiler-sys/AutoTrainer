@@ -31,7 +31,8 @@
         </Grid>
 
         <Grid Grid.Column="1">
-            <views:ManageBatchView DataContext="{Binding CurrentViewModel}"/>
+            <views:ManageBatchView DataContext="{Binding CurrentViewModel}"
+                                   WarnCommand="{Binding WarnCommand}"/>
         </Grid>
     </Grid>
 </Window>
