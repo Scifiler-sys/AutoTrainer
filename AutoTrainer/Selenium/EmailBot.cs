@@ -65,15 +65,12 @@ P (832) 541-2318
                         throw new Exception("Email type does not exist");
                         break;
 
-            //_webDriver.FindElement(By.CssSelector("button[aria-label='Send']")).Click();
+                        webDriver.FindElement(By.CssSelector("button[aria-label='Send']")).Click();
                 }
 
                 //Not ideal, would like to change to Selenium actually checking that the request has finished
-                Thread.Sleep(5000);
+                Thread.Sleep(1000);
             }
-
-
-            //webDriver.Quit();
         }
 
         private void ReDoClick(IWebDriver webDriver, string cssSelector)
