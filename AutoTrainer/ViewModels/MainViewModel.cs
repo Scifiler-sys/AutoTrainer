@@ -12,17 +12,23 @@ namespace AutoTrainer.ViewModels
     public class MainViewModel : ViewModelBase
     {
         private readonly NavigationStore _store;
+        private readonly FactoryViewModel _factoryViewModel;
 
         public ICommand ChangeSettingCommand { get; }
         public ICommand ChangeManageBatchCommand { get; }
         public ViewModelBase CurrentViewModel => _store.CurrentViewModel;
 
-        public MainViewModel(NavigationStore store)
+        public MainViewModel(NavigationStore store, FactoryViewModel factoryViewModel)
         {
             _store = store;
+            _factoryViewModel = factoryViewModel;
 
             //Subscribing to Navigation store to see any changes
             _store.CurrentViewModelChanged += OnCurrentViewModelChanged;
+
+            /*
+             * Need to change the below commands to work with the factory methods
+             */
 
             ChangeSettingCommand = new NavigateCommand<SettingsViewModel>(_store, () => new SettingsViewModel());
             ChangeManageBatchCommand = new NavigateCommand<ManageBatchViewModel>(_store, () => new ManageBatchViewModel());

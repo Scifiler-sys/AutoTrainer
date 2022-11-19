@@ -12,7 +12,8 @@ namespace AutoTrainer.ViewModels
     public enum ViewModelType
     {
         ManageBatch,
-        Settings
+        Settings,
+        HomeView
     }
 
     public class FactoryViewModel

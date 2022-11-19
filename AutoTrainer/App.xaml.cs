@@ -29,6 +29,7 @@ namespace AutoTrainer
         private readonly EmailBot _emailBot;
         private readonly HttpClient _httpClient;
         private readonly BatchRepository _batchRepository;
+        private readonly FactoryViewModel _factoryViewModel;
 
         public App()
         {
@@ -37,6 +38,7 @@ namespace AutoTrainer
             _batchRepository = new BatchRepository();
             _revProService = new RevProService(_httpClient, _batchRepository);
             _emailBot = new EmailBot();
+            _factoryViewModel = new FactoryViewModel(_revProService, _batchStore, _emailBot);
 
 
             _navigationStore = new NavigationStore();
@@ -46,12 +48,12 @@ namespace AutoTrainer
         protected override void OnStartup(StartupEventArgs e)
         {
             //Setting default/custom data for our stores
-            _navigationStore.CurrentViewModel = ;
+            _navigationStore.CurrentViewModel = _factoryViewModel.GetViewModel(ViewModelType.ManageBatch);
             _batchStore.CurrentBatch = new BatchViewModel(_batchRepository.Load());
 
             MainWindow = new MainWindow()
             {
-                DataContext = CreateMainViewModel()
+                DataContext = _factoryViewModel.GetViewModel(ViewModelType.HomeView)
             };
 
             MainWindow.Show();
