@@ -46,12 +46,12 @@ namespace AutoTrainer
         protected override void OnStartup(StartupEventArgs e)
         {
             //Setting default/custom data for our stores
-            _navigationStore.CurrentViewModel = new ManageBatchViewModel(_revProService, _batchStore, _emailBot);
+            _navigationStore.CurrentViewModel = ;
             _batchStore.CurrentBatch = new BatchViewModel(_batchRepository.Load());
 
             MainWindow = new MainWindow()
             {
-                DataContext = new MainViewModel(_navigationStore)
+                DataContext = CreateMainViewModel()
             };
 
             MainWindow.Show();

@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:views="clr-namespace:AutoTrainer.Views"
+        xmlns:vms="clr-namespace:AutoTrainer.ViewModels"
         xmlns:local="clr-namespace:AutoTrainer"
         mc:Ignorable="d"
         Title="AutoTrainer" Height="650" Width="900">
@@ -24,15 +25,25 @@
                 <Button Height="40">
                     <materialDesign:PackIcon Kind="ConstructionOutline"/>
                 </Button>
-                <Button Height="40">
+                <Button Height="40"
+                        Command="{Binding ChangeSettingCommand}">
                     <materialDesign:PackIcon Kind="Settings"/>
                 </Button>
             </ListView>
         </Grid>
 
         <Grid Grid.Column="1">
-            <views:ManageBatchView DataContext="{Binding CurrentViewModel}"
-                                   WarnCommand="{Binding WarnCommand}"/>
+
+            <Grid.Resources>
+                <DataTemplate DataType="{x:Type vms:ManageBatchViewModel}">
+                    <views:ManageBatchView WarnCommand="{Binding WarnCommand}"/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type vms:SettingsViewModel}">
+                    <views:SettingsView />
+                </DataTemplate>
+            </Grid.Resources>
+
+            <ContentControl Content="{Binding CurrentViewModel}"/>
         </Grid>
     </Grid>
 </Window>
