@@ -63,10 +63,9 @@ P (832) 541-2318
                         break;
                     default:
                         throw new Exception("Email type does not exist");
-                        break;
-
-                        webDriver.FindElement(By.CssSelector("button[aria-label='Send']")).Click();
                 }
+
+                webDriver.FindElement(By.CssSelector("button[aria-label='Send']")).Click();
 
                 //Not ideal, would like to change to Selenium actually checking that the request has finished
                 Thread.Sleep(1000);
@@ -84,6 +83,7 @@ P (832) 541-2318
             {
                 webDriver.FindElement(By.CssSelector(cssSelector))
                     .Click();
+                Console.Error.WriteLine(exc.Message);
             }
         }
 

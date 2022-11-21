@@ -24,11 +24,12 @@ namespace AutoTrainer.ViewModels
         private readonly EmailBot _emailBot;
 
 
-        public FactoryViewModel(RevProService revProService, BatchStore batchStore, EmailBot emailBot)
+        public FactoryViewModel(RevProService revProService, BatchStore batchStore, EmailBot emailBot, NavigationStore navigationStore)
         {
             _revProService = revProService;
             _batchStore = batchStore;
             _emailBot = emailBot;
+            _navigationStore = navigationStore;
         }
 
         public ViewModelBase GetViewModel(ViewModelType type)
@@ -40,8 +41,13 @@ namespace AutoTrainer.ViewModels
                 case ViewModelType.Settings:
                     return new SettingsViewModel();
                 default:
-                    return new MainViewModel(_navigationStore);
+                    return new MainViewModel(_navigationStore, CreateFactory());
             }
+        }
+
+        private FactoryViewModel CreateFactory()
+        {
+            return new FactoryViewModel(_revProService, _batchStore, _emailBot,_navigationStore);
         }
     }
 }

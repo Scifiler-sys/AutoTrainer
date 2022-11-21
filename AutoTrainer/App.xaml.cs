@@ -38,11 +38,12 @@ namespace AutoTrainer
             _batchRepository = new BatchRepository();
             _revProService = new RevProService(_httpClient, _batchRepository);
             _emailBot = new EmailBot();
-            _factoryViewModel = new FactoryViewModel(_revProService, _batchStore, _emailBot);
 
 
             _navigationStore = new NavigationStore();
             _batchStore = new BatchStore();
+
+            _factoryViewModel = new FactoryViewModel(_revProService, _batchStore, _emailBot, _navigationStore);
             
         }
         protected override void OnStartup(StartupEventArgs e)
@@ -60,5 +61,7 @@ namespace AutoTrainer
 
             base.OnStartup(e);
         }
+
+
     }
 }

@@ -30,8 +30,8 @@ namespace AutoTrainer.ViewModels
              * Need to change the below commands to work with the factory methods
              */
 
-            ChangeSettingCommand = new NavigateCommand<SettingsViewModel>(_store, () => new SettingsViewModel());
-            ChangeManageBatchCommand = new NavigateCommand<ManageBatchViewModel>(_store, () => new ManageBatchViewModel());
+            ChangeSettingCommand = new NavigateCommand<ViewModelBase>(_store, () => { return factoryViewModel.GetViewModel(ViewModelType.Settings); });
+            ChangeManageBatchCommand = new NavigateCommand<ViewModelBase>(_store, () => { return factoryViewModel.GetViewModel(ViewModelType.ManageBatch); });
         }
 
         //If Nav store does change, it will call on the propertychange hook within this viewmodel
