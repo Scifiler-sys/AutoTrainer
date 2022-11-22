@@ -4,6 +4,7 @@ using AutoTrainer.Stores;
 using AutoTrainer.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,17 +25,30 @@ namespace AutoTrainer.Commands
 
         public async override void Execute(object parameter)
         {
-            Batch newBatch = await _revProService.SyncBatch();
+            try
+            {
+                Batch newBatch = await _revProService.SyncBatch();
 
-            //After syncing, I want to refresh the page. Most likely need to have a pub sub dp with batch store
-            //pub sub already setup just need to change the property directly
-            //Setter in batch store will see that change and automatically invoke the necesary 
-            _batchStore.CurrentBatch = new BatchViewModel(newBatch);
+                //Setting Batch store to whatever we got from the revapi
+                _batchStore.CurrentBatch = new BatchViewModel(newBatch);
 
-            MessageBox.Show("Successfully synced the batch!",
+                MessageBox.Show("Successfully synced the batch!",
                             "Sync Batch",
                             MessageBoxButton.OK,
                             MessageBoxImage.Information);
+
+            }
+            catch (ValidationException exc)
+            {
+                MessageBox.Show($"Unable to sync batch. Double check on your RevPro login credentials.\nError: {exc.Message}",
+                                "Failed",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Error);
+            }
+
+            
+
+            
         }
     }
 }
