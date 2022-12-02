@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31321.278
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoTrainer", "AutoTrainer\AutoTrainer.csproj", "{6E6D7903-4181-420C-8122-517C55CB3A3E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoTrainer", "AutoTrainer\AutoTrainer.csproj", "{6E6D7903-4181-420C-8122-517C55CB3A3E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoTrainerUnitTest", "AutoTrainerUnitTest\AutoTrainerUnitTest.csproj", "{D96B361D-E3B4-4DAA-BFE1-F956A5553318}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoTrainerUnitTest", "AutoTrainerUnitTest\AutoTrainerUnitTest.csproj", "{D96B361D-E3B4-4DAA-BFE1-F956A5553318}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

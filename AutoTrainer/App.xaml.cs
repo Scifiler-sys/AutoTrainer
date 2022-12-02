@@ -36,6 +36,7 @@ namespace AutoTrainer
             services.AddSingleton<BatchStore>();
             services.AddSingleton<NavigationStore>();
             services.AddSingleton<EmailBot>();
+            services.AddSingleton<RevProBot>();
 
             services.AddSingleton<RevProService>();
 

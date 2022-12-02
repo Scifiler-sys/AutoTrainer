@@ -32,12 +32,17 @@ namespace AutoTrainer.Services
         /// <exception cref="ValidationException">401 status code was returned</exception>
         public async Task<Batch> SyncBatch()
         {
+            if (string.IsNullOrEmpty(Properties.Settings.Default.BatchURL))
+            {
+                throw new ValidationException("Batch URL is empty");
+            }
             try
             {
                 //Grabing info from API
                 StringContent stringContent = new StringContent("{\"active\":true,\"dropped\":true,\"isPaginationForLib\":false,\"subscribedContent\":false,\"publicContent\":false,\"ownContent\":false,\"attendance\":[],\"internTrainingStatus\":[\"Active\",\"Dropped\"],\"page\":1,\"size\":40,\"orderBy\":\"lastName\",\"sortOrder\":\"asc\"}", Encoding.UTF8, "application/json");
 
-                using HttpResponseMessage response = await client.PostAsync(@"https://app-ms.revature.com/apigateway/batch/1352/18942/gradebook", stringContent);
+
+                using HttpResponseMessage response = await client.PostAsync(Properties.Settings.Default.BatchURL, stringContent);
 
                 if (response.StatusCode == HttpStatusCode.Unauthorized)
                 {
@@ -55,12 +60,6 @@ namespace AutoTrainer.Services
             {
                 throw e;
             }
-        }
-
-        public string GetEncryptedToken()
-        {
-
-            return "";
         }
     }
 }

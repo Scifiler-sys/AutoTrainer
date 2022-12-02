@@ -1,6 +1,10 @@
-﻿using AutoTrainer.ViewModels;
+﻿
+using AutoTrainer.Selenium;
+using AutoTrainer.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,23 +16,43 @@ namespace AutoTrainer.Commands
     public class SubmitRevProCommand : CommandBase
     {
         private readonly SettingsViewModel settingsViewModel;
+        private readonly RevProBot revProBot;
 
-        public SubmitRevProCommand(SettingsViewModel settingsViewModel)
+        public SubmitRevProCommand(SettingsViewModel settingsViewModel, RevProBot revProBot)
         {
             this.settingsViewModel = settingsViewModel;
+            this.revProBot = revProBot;
         }
 
         public override void Execute(object parameter)
         {
-            Properties.Settings.Default.Username = settingsViewModel.Username;
-            Properties.Settings.Default.Password = ((PasswordBox)parameter).Password;
+            //Properties.Settings.Default.Username = settingsViewModel.Username;
+            //Properties.Settings.Default.Password = ((PasswordBox)parameter).Password;
 
-            Properties.Settings.Default.Save();
+            //Properties.Settings.Default.Save();
 
             MessageBox.Show($"RevPro credentails Saved!",
                             "Credentials",
                             MessageBoxButton.OK,
                             MessageBoxImage.Information);
+
+            if (MessageBox.Show("Would you like the bot to start initialization process for RevPro automation?\n(Highly recommended if this is your first time setting your RevPro credentials)",
+                            "Confirmation",
+                            MessageBoxButton.YesNo,
+                            MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    revProBot.SaveEncryptedKey(Properties.Settings.Default.Username, Properties.Settings.Default.Password);
+                }
+                catch (Exception exc)
+                {
+                    MessageBox.Show($"Unable to start initialization process.\nError: {exc.Message}",
+                                    "Error",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Warning);
+                }
+            }
 
             //Clear textboxes with values
             settingsViewModel.Username = "";

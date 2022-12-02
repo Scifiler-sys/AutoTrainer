@@ -26,14 +26,17 @@ namespace AutoTrainer.Selenium
          * Initialization process to start the bot
          * Will return existing bot or create a new bot
          */
-        public IWebDriver GrabBot()
+        public IWebDriver GetBot()
         {
             if (_webDriver == null)
             {
                 ChromeOptions options = new ChromeOptions();
                 options.AddArgument($"user-data-dir={Directory.GetCurrentDirectory()}/Chrome/UserData/Bot");
 
-                _webDriver = new ChromeDriver(options);
+                ChromeDriverService cService = ChromeDriverService.CreateDefaultService();
+                cService.HideCommandPromptWindow = true;
+
+                _webDriver = new ChromeDriver(cService,options);
                 _webDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
             }
 

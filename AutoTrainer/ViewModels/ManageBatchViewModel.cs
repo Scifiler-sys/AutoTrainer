@@ -48,12 +48,5 @@ namespace AutoTrainer.ViewModels
             //Re-renders the view
             OnPropertyChanged(nameof(Associates));
         }
-
-        public void WarnButton_Click(object sender, RoutedEventArgs e)
-        {
-            AssociateViewModel associate = (AssociateViewModel)((Button)e.Source).DataContext;
-
-            MessageBox.Show($"{associate.firstName}");
-        }
     }
 }

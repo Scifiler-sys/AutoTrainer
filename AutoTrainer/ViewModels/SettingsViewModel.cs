@@ -1,4 +1,5 @@
 ﻿using AutoTrainer.Commands;
+using AutoTrainer.Selenium;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,9 +25,9 @@ namespace AutoTrainer.ViewModels
 
         public ICommand SubmitRevProCred { get; }
 
-        public SettingsViewModel()
+        public SettingsViewModel(RevProBot revProBot)
         {
-            SubmitRevProCred = new SubmitRevProCommand(this);
+            SubmitRevProCred = new SubmitRevProCommand(this, revProBot);
         }
     }
 }
