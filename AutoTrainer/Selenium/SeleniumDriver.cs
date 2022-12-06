@@ -21,17 +21,23 @@ namespace AutoTrainer.Selenium
                 _webDriver = null;
             }
         }
-
-        /*
-         * Initialization process to start the bot
-         * Will return existing bot or create a new bot
-         */
-        public IWebDriver GetBot(int timer)
+        /// <summary>
+        /// Initialization process to start the bot
+        /// </summary>
+        /// <param name="timer">How long for the bot to wait for the user</param>
+        /// <param name="headless">Set True to start the process in the background</param>
+        /// <returns></returns>
+        public IWebDriver GetBot(int timer, bool headless)
         {
             if (_webDriver == null)
             {
                 ChromeOptions options = new ChromeOptions();
                 options.AddArgument($"user-data-dir={Directory.GetCurrentDirectory()}/Chrome/UserData/Bot");
+
+                if (headless)
+                {
+                    options.AddArgument("--headless");
+                }
 
                 _webDriver = new ChromeDriver(options);
                 _webDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(timer);

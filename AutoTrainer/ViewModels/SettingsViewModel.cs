@@ -37,6 +37,18 @@ namespace AutoTrainer.ViewModels
             }
         }
 
+        private bool _headless;
+
+        public bool Headless
+        {
+            get { return _headless; }
+            set 
+            { 
+                _headless = value;
+                Properties.Settings.Default.Headless = value;
+                OnPropertyChanged(nameof(Headless));
+            }
+        }
 
         public ICommand SubmitRevProCred { get; }
 
@@ -44,6 +56,7 @@ namespace AutoTrainer.ViewModels
         {
             SubmitRevProCred = new SubmitRevProCommand(this, revProBot);
             this.EmailSignature = Properties.Settings.Default.EmailSignature;
+            this.Headless = Properties.Settings.Default.Headless;
         }
     }
 }
