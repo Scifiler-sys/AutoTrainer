@@ -30,8 +30,11 @@ namespace AutoTrainer.Commands
                 Batch newBatch = await _revProService.SyncBatch();
 
                 //Setting Batch store to whatever we got from the revapi
-                _batchStore.CurrentBatch = new BatchViewModel(newBatch);
+                if (newBatch != null)
+                {
+                    _batchStore.CurrentBatch = new BatchViewModel(newBatch);
 
+                }
                 MessageBox.Show("Successfully synced the batch!",
                             "Sync Batch",
                             MessageBoxButton.OK,

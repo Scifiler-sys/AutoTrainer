@@ -24,12 +24,14 @@ namespace AutoTrainer.Commands
             this.revProBot = revProBot;
         }
 
-        public override void Execute(object parameter)
+        public override async void Execute(object parameter)
         {
             Properties.Settings.Default.Username = settingsViewModel.Username;
             Properties.Settings.Default.Password = ((PasswordBox)parameter).Password;
 
             Properties.Settings.Default.Save();
+
+            bool success = false;
 
             MessageBox.Show($"RevPro credentails Saved!",
                             "Credentials",
@@ -41,12 +43,28 @@ namespace AutoTrainer.Commands
                             MessageBoxButton.YesNo,
                             MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
-                revProBot.SaveEncryptedKey(Properties.Settings.Default.Username, Properties.Settings.Default.Password);
+                success = await revProBot.SaveEncryptedKey(Properties.Settings.Default.Username, Properties.Settings.Default.Password);
             }
 
-            //Clear textboxes with values
-            settingsViewModel.Username = "";
-            ((PasswordBox)parameter).Password = "";
+            if (success)
+            {
+                //Clear textboxes with values
+                settingsViewModel.Username = "";
+                ((PasswordBox)parameter).Password = "";
+
+                MessageBox.Show("Successfully initialize RevPro Sync",
+                    "Success",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBox.Show("Username and Password is incorrect. Please try again",
+                    "Failure",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+
         }
     }
 }

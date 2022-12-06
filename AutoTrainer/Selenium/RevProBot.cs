@@ -13,46 +13,55 @@ namespace AutoTrainer.Selenium
 {
     public class RevProBot : SeleniumDriver
     {
+        private bool success;
+
         //needed to return a task just so exception handler can see the exception in this async method
         //not ideal maybe there is another solution but this has little to no impact in performance atm
         public async Task<bool> SaveEncryptedKey(string username, string password)
         {
             using (SeleniumDriver driver = new SeleniumDriver())
             {
-                IWebDriver webDriver = (ChromeDriver)driver.GetBot();
+                IWebDriver _webDriver = (ChromeDriver)driver.GetBot(5);
 
                 //Setting up interceptor to look for all network requests being sent out
-                INetwork interceptor = webDriver.Manage().Network;
+                INetwork interceptor = _webDriver.Manage().Network;
                 interceptor.NetworkRequestSent += OnNetworkRequestSent;
+                interceptor.NetworkResponseReceived += OnNetworkResponseRecieved;
 
                 //Starts monitoring the requests
                 //BUGFIXED!! Running the monitor requires to put it on a separate thread
                 //Found out after doing the manual way of starting the monitor and finding online
                 await Task.Run(async () => { await interceptor.StartMonitoring(); });
 
-                webDriver.Navigate().GoToUrl("https://app.revature.com/core/");
+                _webDriver.Navigate().GoToUrl("https://app.revature.com/core/");
 
-                webDriver.FindElement(By.CssSelector(@"#loginForm\:userName-input-id"))
+                _webDriver.FindElement(By.CssSelector(@"#loginForm\:userName-input-id"))
                         .SendKeys(username);
 
-                webDriver.FindElement(By.CssSelector(@"#loginForm\:input-psw"))
+                _webDriver.FindElement(By.CssSelector(@"#loginForm\:input-psw"))
                         .SendKeys(password);
 
-                webDriver.FindElement(By.CssSelector(@"#loginForm\:login-btn-id"))
+                _webDriver.FindElement(By.CssSelector(@"#loginForm\:login-btn-id"))
+                        .Click();
+                try
+                {
+                    _webDriver.FindElement(By.CssSelector("#batDashBatBtnDpdwn"))
+                            .Click();
+                }
+                catch (NoSuchElementException exc)
+                {
+                    return false;
+                }
+
+                _webDriver.FindElements(By.CssSelector("#batDashBatBtnDpdwnOpt"))[3]
                         .Click();
 
-                webDriver.FindElement(By.CssSelector("#batDashBatBtnDpdwn"))
-                        .Click();
-
-                webDriver.FindElements(By.CssSelector("#batDashBatBtnDpdwnOpt"))[3]
-                        .Click();
-
-                webDriver.FindElement(By.CssSelector("#batDashTbl"));
+                _webDriver.FindElement(By.CssSelector("#batDashTbl"));
 
                 await Task.Run(async () => { await interceptor.StopMonitoring(); });
             }
 
-            return true;
+            return success;
         }
 
         [Obsolete("Deprecated, use SaveEncryptedKey instead for more detail associate information")]
@@ -60,7 +69,7 @@ namespace AutoTrainer.Selenium
         {
             using (SeleniumDriver driver = new SeleniumDriver())
             {
-                IWebDriver webDriver = driver.GetBot();
+                IWebDriver webDriver = driver.GetBot(10);
 
                 webDriver.Navigate().GoToUrl("https://app.revature.com/core/");
 
@@ -96,24 +105,24 @@ namespace AutoTrainer.Selenium
         ////Method will execute for every requests sent
         private void OnNetworkRequestSent(object sender, NetworkRequestSentEventArgs e)
         {
-            if (e.RequestUrl.Contains("login"))
-            {
-                Console.WriteLine(e);
-                //Gives 10 headers if fail
-                //Gives  header if work
-            }
-
             if (e.RequestUrl.Contains("gradebook") && e.RequestHeaders.ContainsKey("encryptedToken"))
             {
                 Properties.Settings.Default.Token = e.RequestHeaders["encryptedToken"];
                 Properties.Settings.Default.BatchURL = e.RequestUrl;
                 Properties.Settings.Default.Save();
+
+                success = true;
             }
         }
 
-        public async Task<bool> SomeMethod()
+        private void OnNetworkResponseRecieved(object receiver, NetworkResponseReceivedEventArgs e)
         {
-            return true;
+            //if authentication fails, 13 headers
+            //if authentication success, 11 headers
+            if (e.ResponseUrl.Contains("login") && e.ResponseHeaders.Count > 11)
+            {
+                success = false;
+            }
         }
     }
 }

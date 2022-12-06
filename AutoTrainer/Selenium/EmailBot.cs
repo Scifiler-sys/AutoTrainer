@@ -22,7 +22,7 @@ namespace AutoTrainer.Selenium
         {
             using (SeleniumDriver seleniumDriver = new SeleniumDriver())
             {
-                IWebDriver webDriver = seleniumDriver.GetBot();
+                IWebDriver webDriver = seleniumDriver.GetBot(60);
 
                 webDriver.Navigate().GoToUrl("https://outlook.office.com/");
 

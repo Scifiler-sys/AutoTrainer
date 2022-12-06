@@ -1,5 +1,6 @@
 ﻿using AutoTrainer.DL;
 using AutoTrainer.Models;
+using AutoTrainer.Selenium;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -16,11 +17,13 @@ namespace AutoTrainer.Services
     {
         private readonly HttpClient client;
         private readonly BatchRepository repo;
+        private readonly RevProBot _revProBot;
 
-        public RevProService(HttpClient client, BatchRepository repo)
+        public RevProService(HttpClient client, BatchRepository repo, RevProBot revProBot)
         {
             this.client = client;
             this.repo = repo;
+            _revProBot = revProBot;
         }
 
         /// <summary>
@@ -43,15 +46,33 @@ namespace AutoTrainer.Services
 
                 using HttpResponseMessage response = await client.PostAsync(Properties.Settings.Default.BatchURL, stringContent);
 
-                if (response.StatusCode == HttpStatusCode.Unauthorized)
+                //Will re-grab tokens if token is expired
+                if (response.StatusCode == HttpStatusCode.Unauthorized && !(string.IsNullOrEmpty(Properties.Settings.Default.Username) && string.IsNullOrEmpty(Properties.Settings.Default.Password)))
                 {
-                    throw new ValidationException("401 Unauthorized status code");
+                    bool success = await _revProBot.SaveEncryptedKey(Properties.Settings.Default.Username, Properties.Settings.Default.Password);
+
+                    if (success)
+                    {
+                        client.DefaultRequestHeaders.Clear();
+                        await this.SyncBatch();
+                        return null;
+                    }
                 }
+                else if(response.StatusCode == HttpStatusCode.Unauthorized) //Will throw exception instead if user has not set username and password yet
+                {
+                    throw new ValidationException("401 Unauthorized Access");
+                }
+
+                //if (response.StatusCode == HttpStatusCode.Unauthorized)
+                //{
+                //    throw new ValidationException("401 Unauthorized Access");
+                //}
 
                 Batch content = JsonSerializer.Deserialize<Batch>(await response.Content.ReadAsStringAsync());
 
-                //Saving to JSON
+                //Saving to JSON and clearing headers
                 repo.Save(content);
+                this.client.DefaultRequestHeaders.Clear();
 
                 return content;
             }

@@ -1,5 +1,6 @@
 ﻿using AutoTrainer.DL;
 using AutoTrainer.Models;
+using AutoTrainer.Selenium;
 using AutoTrainer.Services;
 using Moq;
 using RichardSzalay.MockHttp;
@@ -19,11 +20,13 @@ namespace AutoTrainerUnitTest
         private readonly MockHttpMessageHandler _mockHandler;
         private readonly Mock<BatchRepository> _mockBatchRepo;
         private readonly RevProService _batchServ;
+        private readonly Mock<RevProBot> _mockRevProBot;
         public RevProServiceTest()
         {
             this._mockHandler = new MockHttpMessageHandler();
             this._mockBatchRepo = new Mock<BatchRepository>();
-            this._batchServ = new RevProService(_mockHandler.ToHttpClient(), _mockBatchRepo.Object);
+            this._mockRevProBot = new Mock<RevProBot>();
+            this._batchServ = new RevProService(_mockHandler.ToHttpClient(), _mockBatchRepo.Object, _mockRevProBot.Object);
         }
 
         [Fact]
