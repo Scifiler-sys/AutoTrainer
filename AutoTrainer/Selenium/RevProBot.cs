@@ -21,7 +21,7 @@ namespace AutoTrainer.Selenium
         {
             using (SeleniumDriver driver = new SeleniumDriver())
             {
-                IWebDriver _webDriver = (ChromeDriver)driver.GetBot(5);
+                IWebDriver _webDriver = (ChromeDriver)driver.GetBot(5, Properties.Settings.Default.Headless);
 
                 //Setting up interceptor to look for all network requests being sent out
                 INetwork interceptor = _webDriver.Manage().Network;
@@ -69,7 +69,7 @@ namespace AutoTrainer.Selenium
         {
             using (SeleniumDriver driver = new SeleniumDriver())
             {
-                IWebDriver webDriver = driver.GetBot(10);
+                IWebDriver webDriver = driver.GetBot(10, Properties.Settings.Default.Headless);
 
                 webDriver.Navigate().GoToUrl("https://app.revature.com/core/");
 

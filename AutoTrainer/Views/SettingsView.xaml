@@ -59,7 +59,32 @@
                         Command="{Binding SubmitRevProCred}"
                         CommandParameter="{Binding ElementName=PasswordBox}"
                         />
+
             </StackPanel>
+
+            <Grid Grid.Column="1">
+                <StackPanel
+                    Orientation="Vertical">
+                    <TextBlock
+                            Text="Bot"
+                            TextAlignment="Center"
+                            FontSize="22"
+                            FontFamily="Arial"
+                            Margin="0 10 0 0"
+                        />
+
+                    <StackPanel Orientation="Horizontal">
+                        <ToggleButton Style="{StaticResource MaterialDesignSwitchToggleButton}" 
+                                      ToolTip="Will run the bot in the background. Not recommended for new users"
+                                      IsChecked="{Binding Headless}"
+                                      />
+                        <TextBlock Text="Headless mode"
+                                   ToolTip="Will run the bot in the background. Not recommended for new users"
+                                   FontSize="15"/>
+                    </StackPanel>
+                    
+                </StackPanel>
+            </Grid>
         </Grid>
 
         <Grid Grid.Row="2">
