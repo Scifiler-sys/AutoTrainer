@@ -27,7 +27,7 @@ namespace AutoTrainer.Services
         }
 
         /// <summary>
-        /// Will grab current Batch's associates
+        /// Will grab current Batch's associates. Will re-grab token if token expires
         /// </summary>
         /// <returns>Return a Batch object if successful.</returns>
         /// <exception cref="ValidationException">401 status code was returned</exception>
@@ -62,11 +62,6 @@ namespace AutoTrainer.Services
                 {
                     throw new ValidationException("401 Unauthorized Access");
                 }
-
-                //if (response.StatusCode == HttpStatusCode.Unauthorized)
-                //{
-                //    throw new ValidationException("401 Unauthorized Access");
-                //}
 
                 Batch content = JsonSerializer.Deserialize<Batch>(await response.Content.ReadAsStringAsync());
 
