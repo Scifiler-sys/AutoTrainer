@@ -19,9 +19,12 @@ namespace AutoTrainer.DL
             filepath = Directory.GetCurrentDirectory() + "\\" + this.GetType().Name + ".json";
         }
 
+        /// <summary>
+        /// Will overwrite a file if file already exist. If not, it will generate a new file
+        /// </summary>
+        /// <param name="entity">The object getting saved into JSON</param>
         public void Save(T entity)
         {
-
             using (StreamWriter writer = new StreamWriter(filepath))
             {
                 writer.WriteLine(JsonSerializer.Serialize(entity));

@@ -40,7 +40,7 @@ namespace AutoTrainer.Commands
             }
             catch (ValidationException exc)
             {
-                MessageBox.Show($"Unable to sync batch. Double check your RevPro login credentials.\nError: {exc.Message}",
+                MessageBox.Show($"Unable to sync batch. Double check your RevPro login credentials in Settings.\nError: {exc.Message}",
                                 "Failed",
                                 MessageBoxButton.OK,
                                 MessageBoxImage.Error);

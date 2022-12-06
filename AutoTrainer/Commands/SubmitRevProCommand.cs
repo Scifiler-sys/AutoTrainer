@@ -26,10 +26,10 @@ namespace AutoTrainer.Commands
 
         public override void Execute(object parameter)
         {
-            //Properties.Settings.Default.Username = settingsViewModel.Username;
-            //Properties.Settings.Default.Password = ((PasswordBox)parameter).Password;
+            Properties.Settings.Default.Username = settingsViewModel.Username;
+            Properties.Settings.Default.Password = ((PasswordBox)parameter).Password;
 
-            //Properties.Settings.Default.Save();
+            Properties.Settings.Default.Save();
 
             MessageBox.Show($"RevPro credentails Saved!",
                             "Credentials",
@@ -41,17 +41,7 @@ namespace AutoTrainer.Commands
                             MessageBoxButton.YesNo,
                             MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
-                try
-                {
-                    revProBot.SaveEncryptedKey(Properties.Settings.Default.Username, Properties.Settings.Default.Password);
-                }
-                catch (Exception exc)
-                {
-                    MessageBox.Show($"Unable to start initialization process.\nError: {exc.Message}",
-                                    "Error",
-                                    MessageBoxButton.OK,
-                                    MessageBoxImage.Warning);
-                }
+                revProBot.SaveEncryptedKey(Properties.Settings.Default.Username, Properties.Settings.Default.Password);
             }
 
             //Clear textboxes with values

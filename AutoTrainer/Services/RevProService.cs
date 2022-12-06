@@ -20,8 +20,6 @@ namespace AutoTrainer.Services
         public RevProService(HttpClient client, BatchRepository repo)
         {
             this.client = client;
-            client.DefaultRequestHeaders.Add("encryptedToken",Properties.Settings.Default.Token);
-
             this.repo = repo;
         }
 
@@ -41,6 +39,7 @@ namespace AutoTrainer.Services
                 //Grabing info from API
                 StringContent stringContent = new StringContent("{\"active\":true,\"dropped\":true,\"isPaginationForLib\":false,\"subscribedContent\":false,\"publicContent\":false,\"ownContent\":false,\"attendance\":[],\"internTrainingStatus\":[\"Active\",\"Dropped\"],\"page\":1,\"size\":40,\"orderBy\":\"lastName\",\"sortOrder\":\"asc\"}", Encoding.UTF8, "application/json");
 
+                client.DefaultRequestHeaders.Add("encryptedToken", Properties.Settings.Default.Token);
 
                 using HttpResponseMessage response = await client.PostAsync(Properties.Settings.Default.BatchURL, stringContent);
 

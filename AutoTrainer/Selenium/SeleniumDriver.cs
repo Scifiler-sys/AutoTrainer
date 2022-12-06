@@ -33,10 +33,7 @@ namespace AutoTrainer.Selenium
                 ChromeOptions options = new ChromeOptions();
                 options.AddArgument($"user-data-dir={Directory.GetCurrentDirectory()}/Chrome/UserData/Bot");
 
-                ChromeDriverService cService = ChromeDriverService.CreateDefaultService();
-                cService.HideCommandPromptWindow = true;
-
-                _webDriver = new ChromeDriver(cService,options);
+                _webDriver = new ChromeDriver(options);
                 _webDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
             }
 
