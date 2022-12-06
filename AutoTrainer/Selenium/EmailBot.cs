@@ -52,11 +52,7 @@ We are always available on Teams or via Email for your questions, and please do 
 
 From,
 
-Stephen Pagdilao
-Revature LLC | Sr. Trainer
-E stephen.pagdilao@revature.com
-P (832) 541-2318
-                    ");
+                    " + Properties.Settings.Default.EmailSignature);
                         break;
                     case EmailType.Welcome:
 
@@ -65,7 +61,7 @@ P (832) 541-2318
                         throw new Exception("Email type does not exist");
                 }
 
-                webDriver.FindElement(By.CssSelector("button[aria-label='Send']")).Click();
+                //webDriver.FindElement(By.CssSelector("button[aria-label='Send']")).Click();
 
                 //Not ideal, would like to change to Selenium actually checking that the request has finished
                 Thread.Sleep(1000);

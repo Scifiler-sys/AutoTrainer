@@ -10,7 +10,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="550"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
@@ -43,6 +43,8 @@
                   CanUserDeleteRows="False"
                   CanUserAddRows="False"
                   IsReadOnly="True"
+                  ScrollViewer.CanContentScroll="True"
+                  ScrollViewer.VerticalScrollBarVisibility="Auto"
                   ItemsSource="{Binding Associates}">
             <DataGrid.Columns >
                 <DataGridTextColumn 
