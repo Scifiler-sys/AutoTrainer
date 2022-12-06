@@ -18,20 +18,22 @@
                 <ColumnDefinition Width="auto"></ColumnDefinition>
                 <ColumnDefinition Width="auto"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-
-            <TextBlock
-            Grid.Row="0"
-            Grid.Column="0"
-            FontSize="36"
+            <StackPanel Orientation="Horizontal">
+                <TextBlock
+                Grid.Row="0"
+                Grid.Column="0"
+                FontSize="36"
             
-            Text="Batch Name" FontFamily="Arial" Margin="10,10,51,-10">
-            </TextBlock>
+                Text="Batch Name" FontFamily="Arial" Margin="10">
+                </TextBlock>
 
-            <Button
-            Grid.Row="0" Margin="223,15,498,6"
-                MaxWidth="60"
-                Command="{Binding SyncCommand}">
-                Sync</Button>
+                <Button
+                Grid.Row="0"
+                    MaxWidth="60"
+                    Command="{Binding SyncCommand}">
+                    Sync</Button>
+                
+            </StackPanel>
         </Grid>
 
         <DataGrid Grid.Row="1" 
@@ -79,7 +81,7 @@
                             <Button 
                                 Background="#FF2E2E"
                                 Click="DeleteButton_Click">
-                                <materialDesign:PackIcon Kind="Trash"/>
+                                <materialDesign:PackIcon Kind="AccountCancel"/>
                             </Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

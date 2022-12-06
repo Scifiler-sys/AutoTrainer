@@ -19,10 +19,12 @@
             <ListView>
                 <Button Height="40"
                         Command="{Binding ChangeManageBatchCommand}">
-                    <materialDesign:PackIcon Kind="GoogleClassroom"/>
+                    <materialDesign:PackIcon Kind="GoogleClassroom"
+                                             ToolTip="Manage Batch"/>
                 </Button>
                 <Button Height="40">
-                    <materialDesign:PackIcon Kind="ConstructionOutline"/>
+                    <materialDesign:PackIcon Kind="StickerTextOutline"
+                                             ToolTip="Send Standup"/>
                 </Button>
                 <Button Height="40">
                     <materialDesign:PackIcon Kind="ConstructionOutline"/>
