@@ -8,6 +8,7 @@
         xmlns:vms="clr-namespace:AutoTrainer.ViewModels"
         xmlns:local="clr-namespace:AutoTrainer"
         mc:Ignorable="d"
+        ResizeMode="CanMinimize"
         Title="AutoTrainer" Height="650" Width="900">
     <Grid>
         <Grid.ColumnDefinitions>

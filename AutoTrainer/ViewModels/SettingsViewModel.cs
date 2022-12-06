@@ -23,11 +23,27 @@ namespace AutoTrainer.ViewModels
             }
         }
 
+        private string _emailSignature;
+
+        public string EmailSignature
+        {
+            get { return _emailSignature; }
+            set 
+            { 
+                _emailSignature = value;
+                Properties.Settings.Default.EmailSignature = value;
+                Properties.Settings.Default.Save();
+                OnPropertyChanged(nameof(EmailSignature));
+            }
+        }
+
+
         public ICommand SubmitRevProCred { get; }
 
         public SettingsViewModel(RevProBot revProBot)
         {
             SubmitRevProCred = new SubmitRevProCommand(this, revProBot);
+            this.EmailSignature = Properties.Settings.Default.EmailSignature;
         }
     }
 }

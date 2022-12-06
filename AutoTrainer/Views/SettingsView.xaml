@@ -12,9 +12,17 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
             <RowDefinition Height="auto"/>
-            <RowDefinition/>
-            <RowDefinition Height="130"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
+
+        <TextBlock
+            Grid.Row="0"
+            Grid.Column="0"
+            FontSize="36"
+            
+            Text="Settings" FontFamily="Arial" Margin="10,10,51,-10">
+        </TextBlock>
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
@@ -52,14 +60,38 @@
                         CommandParameter="{Binding ElementName=PasswordBox}"
                         />
             </StackPanel>
-
         </Grid>
-        <TextBlock
-            Grid.Row="0"
-            Grid.Column="0"
-            FontSize="36"
-            
-            Text="Settings" FontFamily="Arial" Margin="10,10,51,-10">
-        </TextBlock>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock
+                Text="Email"
+                FontFamily="Arial"
+                FontSize="22" 
+                Margin="0,23,0,-23"
+                TextAlignment="Center"
+                />
+        </Grid>
+
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <TextBox
+                materialDesign:HintAssist.Hint="Email Signature"
+                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                Margin="10"
+                Text="{Binding EmailSignature}"
+                TextWrapping="Wrap"
+                AcceptsReturn="True"
+                VerticalScrollBarVisibility="Auto"
+                />
+        </Grid>
+        
     </Grid>
 </UserControl>
