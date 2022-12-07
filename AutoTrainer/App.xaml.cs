@@ -33,10 +33,12 @@ namespace AutoTrainer
 
             services.AddSingleton<HttpClient>();
             services.AddSingleton<BatchRepository>();
+            services.AddSingleton<StandupRepository>();
             services.AddSingleton<BatchStore>();
             services.AddSingleton<NavigationStore>();
             services.AddSingleton<EmailBot>();
             services.AddSingleton<RevProBot>();
+            services.AddSingleton<StandupBot>();
 
             services.AddSingleton<RevProService>();
 

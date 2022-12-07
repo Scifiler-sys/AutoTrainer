@@ -12,7 +12,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -27,9 +27,9 @@
             Margin="10"
             />
 
-        <Grid Grid.Row="1">
-            <StackPanel Orientation="Vertical">
-                
+        <Grid Grid.Row="1" >
+            <StackPanel Orientation="Vertical" DataContext="{Binding CurrentStandup}">
+
                 <StackPanel.Resources>
                     <Style BasedOn="{StaticResource MaterialDesignOutlinedTextBox}"
                            TargetType="TextBox"
@@ -39,7 +39,7 @@
                         <Setter Property="HorizontalAlignment" Value="Left"></Setter>
                     </Style>
                 </StackPanel.Resources>
-                
+
                 <TextBlock
                     Text="When did the batch started?"
                     Margin="10 0 0 10"
@@ -50,21 +50,50 @@
                     HorizontalAlignment="Left"
                     Margin="10 0 0 10"
                     Style="{StaticResource MaterialDesignFilledDatePicker}" 
+                    SelectedDate="{Binding SelectedDate}"
                     />
                 <TextBox
                       materialDesign:HintAssist.Hint="Which Team? (Write the name shown in survey)"
                       Style="{StaticResource TextBox}"
+                      Text="{Binding CurrentTeam}"
                     />
-                <TextBox
-                      materialDesign:HintAssist.Hint="How many associates do you project to promote to staging"
+                <TextBlock
+                    Text="Total promote to staging - Total Associate - Total Warns"
+                    Margin="10 0 0 10"
+                    />
+                <StackPanel Orientation="Horizontal">
+                    <TextBox
+                      materialDesign:HintAssist.Hint="# Promote"
                       Style="{StaticResource TextBox}"
-                      PreviewTextInput="TextBox_PreviewTextInput"
+                      PreviewTextInput="TextBox_PreviewTextInput_Numbers_Only"
+                      Width="110"
+                      Text="{Binding ProjectToStaging}"
+                      ToolTip="How many associates will be promoting to staging"
                     />
+                    <TextBox
+                      materialDesign:HintAssist.Hint="# Total"
+                      Style="{StaticResource TextBox}"
+                      PreviewTextInput="TextBox_PreviewTextInput_Numbers_Only"
+                      Width="110"
+                      Text="{Binding HowManyAssociate}"
+                      ToolTip="Current total of associates"
+                    />
+                    <TextBox
+                      materialDesign:HintAssist.Hint="# Warns"
+                      Style="{StaticResource TextBox}"
+                      PreviewTextInput="TextBox_PreviewTextInput_Numbers_Only"
+                      Width="110"
+                      Text="{Binding HowManyWarnings}"
+                      ToolTip="How many warnings"
+                    />
+                </StackPanel>
+
                 <TextBox
                       materialDesign:HintAssist.Hint="List all initiatives"
                       Style="{StaticResource TextBox}"
                       HorizontalAlignment="Left" 
                       Margin="10 0 0 10"
+                      Text="{Binding ListOfInitiatives}"
                     />
                 <RadioButton
                       Style="{StaticResource MaterialDesignRadioButton}"
@@ -72,13 +101,60 @@
                       HorizontalAlignment="Left"
                       Margin="10 0 0 10"
                       Content="Aware of batch context"
+                      IsChecked="{Binding AwareOfBatch}"
+                    />
+                <TextBlock
+                    Text="Rate your workload (1-5)"
+                    Margin="10 0 0 10"
                     />
 
-                <Button Content="Start Bot"
-                        Margin="20 10 20 0"
-                        Style="{StaticResource MaterialDesignRaisedButton}"
-                        />
+                <TextBox
+                      materialDesign:HintAssist.Hint="Workload"
+                      Style="{StaticResource TextBox}"
+                      HorizontalAlignment="Left" 
+                      Margin="10 0 0 10"
+                      Width="120"
+                      PreviewTextInput="TextBox_PreviewTextInput_Workload"
+                      MaxLength="1"
+                      Text="{Binding WorkLoad}"
+                    />
+
             </StackPanel>
         </Grid>
+        <Grid Grid.Row="1"
+              Grid.Column="1">
+            <StackPanel DataContext="{Binding CurrentStandup}">
+                <TextBox
+                    materialDesign:HintAssist.Hint="Does the SF count match your batch count?"
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    HorizontalAlignment="Left"
+                    Margin="10 0 0 10"
+                    Width="350"
+                    Height="150"
+                    TextWrapping="Wrap"
+                    SpellCheck.IsEnabled="True"
+                    FontSize="15"
+                    Text="{Binding NotMatchingSF}"
+                    />
+                <TextBox
+                    materialDesign:HintAssist.Hint="General Note"
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    HorizontalAlignment="Left"
+                    Margin="10 0 0 10"
+                    Width="350"
+                    Height="300"
+                    TextWrapping="Wrap"
+                    SpellCheck.IsEnabled="True"
+                    FontSize="15"
+                    Text="{Binding GeneralNote}"/>
+            </StackPanel>
+        </Grid>
+
+        <Button Content="Start Bot"
+                Margin="20 10 20 0"
+                Grid.Row="2"
+                Grid.Column="0"
+                Style="{StaticResource MaterialDesignRaisedButton}"
+                Command="{Binding StartStandupBotCommand}"/>
     </Grid>
 </UserControl>

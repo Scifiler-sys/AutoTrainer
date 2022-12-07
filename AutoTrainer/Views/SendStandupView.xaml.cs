@@ -26,9 +26,15 @@ namespace AutoTrainer.Views
             InitializeComponent();
         }
 
-        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        //Textbox only accepts numeric values
+        private void TextBox_PreviewTextInput_Numbers_Only(object sender, TextCompositionEventArgs e)
         {
-            e.Handled = !new Regex("[^0-9.-]+").IsMatch(e.Text);
+            e.Handled = new Regex("[^0-9]+").IsMatch(e.Text);
+        }
+
+        private void TextBox_PreviewTextInput_Workload(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = (new Regex("[^1-5]+").IsMatch(e.Text));
         }
     }
 }

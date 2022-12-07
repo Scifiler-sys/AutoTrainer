@@ -48,7 +48,7 @@ namespace AutoTrainer.Selenium
                     _webDriver.FindElement(By.CssSelector("#batDashBatBtnDpdwn"))
                             .Click();
                 }
-                catch (NoSuchElementException exc)
+                catch (NoSuchElementException)
                 {
                     return false;
                 }

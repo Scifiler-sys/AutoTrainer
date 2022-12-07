@@ -18,17 +18,28 @@
         <Grid Grid.Column="0" Background="LightGray">
             <ListView>
                 <Button Height="40"
-                        Command="{Binding ChangeManageBatchCommand}">
+                        Command="{Binding ChangeManageBatchCommand}"
+                        ToolTip="Manage Batch">
                     <materialDesign:PackIcon Kind="GoogleClassroom"
                                              ToolTip="Manage Batch"/>
                 </Button>
                 <Button Height="40"
-                        Command="{Binding ChangeSendStandupCommand}">
+                        Command="{Binding ChangeSendStandupCommand}"
+                        ToolTip="Send Standup">
                     <materialDesign:PackIcon Kind="StickerTextOutline"
                                              ToolTip="Send Standup"/>
                 </Button>
-                <Button Height="40">
-                    <materialDesign:PackIcon Kind="ConstructionOutline"/>
+                <Button Height="40"
+                        ToolTip="Under Construction">
+                    <materialDesign:PackIcon Kind="Crane" ToolTip="Under Construction"/>
+                </Button>
+                <Button Height="40"
+                        ToolTip="Under Construction">
+                    <materialDesign:PackIcon Kind="Crane" ToolTip="Under Construction"/>
+                </Button>
+                <Button Height="40"
+                        ToolTip="Under Construction">
+                    <materialDesign:PackIcon Kind="Crane" ToolTip="Under Construction"/>
                 </Button>
                 <Button Height="40"
                         Command="{Binding ChangeSettingCommand}">
