@@ -46,6 +46,7 @@ namespace AutoTrainer
 
             services.AddTransient<ManageBatchViewModel>();
             services.AddTransient<SettingsViewModel>();
+            services.AddTransient<SendStandupViewModel>();
 
             _provider = services.BuildServiceProvider();
         }

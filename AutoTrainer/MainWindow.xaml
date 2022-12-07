@@ -22,7 +22,8 @@
                     <materialDesign:PackIcon Kind="GoogleClassroom"
                                              ToolTip="Manage Batch"/>
                 </Button>
-                <Button Height="40">
+                <Button Height="40"
+                        Command="{Binding ChangeSendStandupCommand}">
                     <materialDesign:PackIcon Kind="StickerTextOutline"
                                              ToolTip="Send Standup"/>
                 </Button>
@@ -44,6 +45,9 @@
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type vms:SettingsViewModel}">
                     <views:SettingsView />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type vms:SendStandupViewModel}">
+                    <views:SendStandupView />
                 </DataTemplate>
             </Grid.Resources>
 

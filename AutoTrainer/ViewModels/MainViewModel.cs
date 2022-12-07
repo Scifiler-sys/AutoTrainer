@@ -16,6 +16,7 @@ namespace AutoTrainer.ViewModels
 
         public ICommand ChangeSettingCommand { get; }
         public ICommand ChangeManageBatchCommand { get; }
+        public ICommand ChangeSendStandupCommand { get; }
         public ViewModelBase CurrentViewModel => _store.CurrentViewModel;
 
         public MainViewModel(NavigationStore store, IServiceProvider s)
@@ -31,6 +32,7 @@ namespace AutoTrainer.ViewModels
 
             ChangeSettingCommand = new NavigateCommand<ViewModelBase>(_store, () => s.GetRequiredService<SettingsViewModel>());
             ChangeManageBatchCommand = new NavigateCommand<ViewModelBase>(_store, () => s.GetRequiredService<ManageBatchViewModel>());
+            ChangeSendStandupCommand = new NavigateCommand<ViewModelBase>(_store, () => s.GetRequiredService<SendStandupViewModel>());
         }
 
         //If Nav store does change, it will call on the propertychange hook within this viewmodel
