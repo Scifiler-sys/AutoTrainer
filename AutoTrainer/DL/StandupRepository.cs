@@ -9,9 +9,8 @@ using System.Threading.Tasks;
 
 namespace AutoTrainer.DL
 {
-    public class BatchRepository : Repository<Batch>
+    public class StandupRepository : Repository<Standup>
     {
-        public BatchRepository() : base()
-        { }
+        public StandupRepository() : base() { }
     }
 }

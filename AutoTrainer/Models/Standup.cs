@@ -11,5 +11,17 @@ namespace AutoTrainer.Models
         public DateTime StartDate { get; set; }
         public string CurrentTeam { get; set; }
         public int HowManyAssociates { get; set; }
+        public string ListOfInitiatives { get; set; }
+        public bool AwareOfBatch { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Standup standup &&
+                   StartDate == standup.StartDate &&
+                   CurrentTeam == standup.CurrentTeam &&
+                   HowManyAssociates == standup.HowManyAssociates &&
+                   ListOfInitiatives == standup.ListOfInitiatives &&
+                   AwareOfBatch == standup.AwareOfBatch;
+        }
     }
 }
