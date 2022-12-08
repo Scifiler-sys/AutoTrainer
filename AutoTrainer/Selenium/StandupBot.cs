@@ -31,7 +31,6 @@ namespace AutoTrainer.Selenium
                 //=== First Page ===
                 webDriver.FindElement(By.CssSelector($"input[value*='{currentStandup.CurrentTeam}']"))
                     .Click();
-                //#form-main-content > div > div.office-form.office-form-theme-shadow > div.office-form-body > div.office-form-question-body > div:nth-child(2) > div > div.office-form-question-element > div > div:nth-child(2) > div > label > input[type=radio]
 
                 webDriver.FindElement(By.CssSelector("#SelectId_0_placeholder"))
                     .Click();
@@ -119,7 +118,7 @@ namespace AutoTrainer.Selenium
         private string WeekCalculation(DateTime initialDate)
         {
             TimeSpan diffDate = DateTime.Now - initialDate;
-            int calculatedWeek = (int)Math.Ceiling(diffDate.Days / 7.0);
+            int calculatedWeek = (int)Math.Ceiling(diffDate.Days / 7.0);zdfzdf
 
             int currentWeek = calculatedWeek;
             string convertedWeek;
