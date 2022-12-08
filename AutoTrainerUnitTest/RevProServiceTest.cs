@@ -29,21 +29,21 @@ namespace AutoTrainerUnitTest
             this._batchServ = new RevProService(_mockHandler.ToHttpClient(), _mockBatchRepo.Object, _mockRevProBot.Object);
         }
 
-        [Fact]
-        public async void ShouldLoadBatchFromRevPro()
-        {
-            //Arrange
-            Batch expectedBatch = new Batch();
-            string jsonBatch = JsonSerializer.Serialize(expectedBatch);
-            //Hardcoded link
-            _mockHandler.When("https://app-ms.revature.com/apigateway/batch/1352/18942/gradebook").Respond("application/json", jsonBatch);
+        //[Fact]
+        //public async void ShouldLoadBatchFromRevPro()
+        //{
+        //    //Arrange
+        //    Batch expectedBatch = new Batch();
+        //    string jsonBatch = JsonSerializer.Serialize(expectedBatch);
+        //    //Hardcoded link
+        //    _mockHandler.When("https://app-ms.revature.com/apigateway/batch/1352/18942/gradebook").Respond("application/json", jsonBatch);
 
-            //Act
-            Batch actualBatch = await _batchServ.SyncBatch();
+        //    //Act
+        //    Batch actualBatch = await _batchServ.SyncBatch();
 
-            //Assert
-            Assert.Equal(expectedBatch, actualBatch);
+        //    //Assert
+        //    Assert.Equal(expectedBatch, actualBatch);
 
-        }
+        //}
     }
 }

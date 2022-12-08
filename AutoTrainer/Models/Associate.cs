@@ -32,6 +32,8 @@ namespace AutoTrainer.Models
         public bool isNewTrainee { get; set; }
         public string gitUsername { get; set; }
 
+        public bool isWarned { get; set; }
+
         public Associate()
         {
 

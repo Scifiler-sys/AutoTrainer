@@ -35,24 +35,30 @@ namespace AutoTrainer.DL
         /// Will load a file if the file exists
         /// </summary>
         /// <returns>
-        /// Will return an object version of JSON. If file does not exist, return null instead.
+        /// Will return an object version of JSON. If file does not exist, will create a default file instead.
         /// </returns>
-        public virtual Batch Load()
+        public virtual T Load()
         {
+            T currentFile = (T)Activator.CreateInstance(typeof(T));
+
             try
             {
                 using (StreamReader reader = new StreamReader(filepath))
                 {
                     string json = reader.ReadToEnd();
 
-                    return JsonSerializer.Deserialize<Batch>(json);
+                    currentFile = JsonSerializer.Deserialize<T>(json);
                 }
             }
-            catch (FileNotFoundException exc)
+            catch (FileNotFoundException)
             {
-                Console.Error.WriteLine(exc.Message);
-                return null;
+                using (StreamWriter writer = new StreamWriter(filepath))
+                {
+                    writer.WriteLine(JsonSerializer.Serialize(currentFile));
+                }
             }
+
+            return currentFile;
         }
     }
 }
